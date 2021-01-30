@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
+require('dotenv').config()
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -57,4 +58,4 @@ client.on('message', msg => {
   }
 });
 
-client.login('ODA0NDY1Njc2MzY5NTI2Nzg0.YBMvCw._drkhRirVDPrUZwQZVXn7HqRp48')
+client.login(process.env.TOKEN)
