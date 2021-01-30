@@ -28,6 +28,10 @@ client.on('message', msg => {
     ]
     playerMap['choccy melk'] = ['https://i.imgur.com/JN5zSr4.png']
     playerMap['firebender123'] = ['https://i.imgur.com/hJBQb1H.png']
+    playerMap['cbrl'] = [
+      'https://i.imgur.com/36fxRED.png',
+      'https://i.imgur.com/j1ILiMM.png'
+    ]
     
     let imageArr = playerMap[activePlayers[Math.round(Math.random() * (activePlayers.length - 1))]]
 
@@ -43,7 +47,11 @@ client.on('message', msg => {
     msg.channel.send('Players cleared!')
   } else if (msg.content === "trollbot show") {
     if (activePlayers.length < 1) {
-      msg.channel.send('nobody\'s playing bitch')
+      if (msg.author.username == "python357") {
+        msg.channel.send('nobody\'s playing father')
+      } else {
+        msg.channel.send('nobody\'s playing bitch')
+      }
     } else {
       msg.channel.send(`Current Players: ${activePlayers.join(', ')}`)
     }
