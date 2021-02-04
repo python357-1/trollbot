@@ -2,7 +2,13 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const redis = require('redis')
 const server = redis.createClient()
+const Youtube = require("youtube-node")
 require('dotenv').config()
+
+const YT_KEY = 'AIzaSyB46H0uz2T32PixIpoY-sri09TDjXgfmcs';
+
+let youtube = new Youtube();
+youtube.setKey(YT_KEY)
 
 server.on("error", (err) => {
   console.error(err)
@@ -83,6 +89,23 @@ client.on('message', msg => {
 \`trollbot play\` - shows a random image of the current players
 \`trollbot help\` - really 
     `)
+  } else {
+    if (msg.author.username != 'trollbot') {
+      const YT_REGEX = /<https:\/\/www.youtube.com\/watch\?v=.{1,}>/
+      if (YT_REGEX.test(msg.cleanContent)) {
+        let uncleanString = msg.cleanContent;
+        let cleanString = uncleanString.substr(1, (uncleanString.length - 2))
+        let vidID = cleanString.split('=')[1]
+
+        youtube.getById(vidID, (err, data) => {
+          if (err) {
+            console.error(err)
+          } else {
+            msg.channel.send(data.items[0].snippet.title)
+          }
+        })
+      }
+    }
   }
 });
 
